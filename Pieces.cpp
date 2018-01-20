@@ -13,7 +13,7 @@ const int INF=1e9;
      /**Valid Move**/
 }
  /**
- TO-DO when select piece again
+ TO-DO when select piece again I will do the copy constructor
  Piece(){
 
 

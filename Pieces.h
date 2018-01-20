@@ -3,11 +3,12 @@
 #include <stack>
 #include <bitset>
 
-typedef std::bitset<8> BYTE;
+//typedef std::bitset<8> BYTE;
 
 enum PieceColor{
-    WHITE,
-    BLACK,
+    COLOR_WHITE,
+    COLOR_BLACK,
+    COLOR_NONE,
 };
 enum PieceType{
     KING,
@@ -19,6 +20,7 @@ enum PieceType{
     NONE, // WHY!
 };
 class Piece{
+public:
      Piece(PieceColor C,PieceType T);
 private:
     PieceColor pieceColor;
@@ -29,7 +31,7 @@ private:
     int defendedValue;
     bool selected; /** GUI**/
     bool moved;
-    std::stack <BYTE> validMoves;
+    std::stack <int> validMoves;
     int calculatePieceValue(PieceType T);
     int calculateActionValue(PieceType T);
 
