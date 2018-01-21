@@ -16,10 +16,9 @@ const int NUMBER_OF_SQUARES(64);
 **/
 /**
 TO-DO handling special moves Castling , Pawn Promotion, En Passant
-
 **/
 class Moves{
-
+public:
 
     vector <vector < int > > whitePawnsMoves;
 
@@ -49,7 +48,7 @@ class Moves{
 
     bool valid(int x, int y);
     int to64Square(int x, int y);
-public:
+
         Moves();
 };
 #endif // MOVES_H

@@ -11,6 +11,8 @@
 56 57 58 59 60 61 62 63
 **/
 /**Black Bishop is meant for the square**/
+
+
 bool Moves::valid(int x, int y){
     if(x<0||y<0||x>7||y>7) return 0;
     return 1;
@@ -54,8 +56,8 @@ void Moves::genWhitePawnsMoves(){
         if(valid(x-1, y+1)){
             whitePawnsMoves[i].push_back(to64Square(x-1,y+1));
         }
-        if(ROW == 7)
-            whitePwansMoves[i].push_back(to64Square(x-2,y))
+        if(ROW(i) == 7)
+            whitePawnsMoves[i].push_back(to64Square(x-2,y));
     }
 }
 void Moves::genBlackPawnsMoves(){
@@ -73,8 +75,8 @@ void Moves::genBlackPawnsMoves(){
         if(valid(x+1, y+1)){
             blackPawnsMoves[i].push_back(to64Square(x+1, y+1));
         }
-        if(ROW == 1)
-            whitePwansMoves[i].push_back(to64Square(x+2,y))
+        if(ROW(i) == 1)
+            blackPawnsMoves[i].push_back(to64Square(x+2,y));
     }
 }
 void Moves::genKnightMoves(){

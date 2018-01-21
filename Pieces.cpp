@@ -7,7 +7,7 @@ const int INF=1e9;
 
 
 
- Piece::Piece(PieceColor C,PieceType T):pieceColor(C), pieceType(T), moved(0){
+ Piece::Piece(PieceType T, PieceColor C):pieceType(T), pieceColor(C){
      /**Constructor used to init() piece**/
      pieceValue=calculatePieceValue(T);
      /**Valid Move**/

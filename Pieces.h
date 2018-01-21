@@ -4,7 +4,6 @@
 #include <bitset>
 
 //typedef std::bitset<8> BYTE;
-
 enum PieceColor{
     COLOR_WHITE,
     COLOR_BLACK,
@@ -19,18 +18,22 @@ enum PieceType{
     PAWN,
     NONE, // WHY!
 };
+
+
 class Piece{
 public:
-     Piece(PieceColor C,PieceType T);
-private:
-    PieceColor pieceColor;
-    PieceType pieceType;
+Piece(PieceType T, PieceColor C);
+PieceColor pieceColor;
+PieceType pieceType;
+
+
     int pieceValue;
     int pieceActionValue;
     int attackedValue;
     int defendedValue;
     bool selected; /** GUI**/
     bool moved;
+    int lastValidMoveCnt;
     std::stack <int> validMoves;
     int calculatePieceValue(PieceType T);
     int calculateActionValue(PieceType T);

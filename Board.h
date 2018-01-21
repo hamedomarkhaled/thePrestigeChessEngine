@@ -6,7 +6,7 @@
 #include "Pieces.h"
 
 class Board{
-
+public:
     Square squares[64];
     int score;
     bool blackCheck;
@@ -19,19 +19,22 @@ class Board{
     int repeatedMove;
 
     bool blackCastled;
-    bool WhiteCastled;
+    bool whiteCastled;
+    bool blackCanCastle;
+    bool whiteCanCastle;
 
     bool endGamePhase;
 
     /** MoveContent file LastMove**/
 //    PieceColor enPassantColor;
 
-//    int enPassantPosition;
+    int enPassantPosition;
 
     PieceColor whosMove;
 
     int moveCount;
     /**CONSTRUCTORS**/
+    Board();
 
 
 
