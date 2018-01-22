@@ -46,8 +46,7 @@ public:
     void genQueenMoves();
     void genKingMoves();
 
-    bool valid(int x, int y);
-    int to64Square(int x, int y);
+    static bool valid(int x, int y);
 
         Moves();
 };

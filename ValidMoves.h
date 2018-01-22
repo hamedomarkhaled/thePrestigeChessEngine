@@ -18,7 +18,7 @@ public:
     void analyzeMovePawn(Board &board, int dst, Piece &pcMoving);
     /**TO-generatingValidMethods**/
     void generateValidMovesKingCastle(Board &board, Piece &king);
-     void generateValidMoves(Board board);
+     void generateValidMoves(Board &board);
      void generateValidMovesKing(Piece &piece, Board &board, int src);
      /**Will be intialized from the engine **/
      Moves moves;

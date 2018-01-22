@@ -101,64 +101,47 @@ void ValidMoves::generateValidMovesKing(Piece &piece, Board &board, int src){
     }
 }
 void ValidMoves::generateValidMovesKingCastle(Board &board, Piece &king){
-    if(king.pieceType == NONE || king.moved == 1 ||
-       (king.pieceColor == COLOR_WHITE && board.whiteCastled == true ) ||
-        (king.pieceColor == COLOR_BLACK && board.blackCastled == true ) ||
-          (king.pieceColor == COLOR_WHITE && board.whiteCheck == true) ||
-          (king.pieceColor == COLOR_BLACK && board.blackCheck == true))
-            return;
-    if(king.pieceColor == COLOR_WHITE){
-        if(board.squares[63].piece.pieceType != NONE){
-            if((board.squares[63].piece.pieceType == ROOK) &&
-               (board.squares[63].piece.moved == false)&&
-               (board.squares[63].piece.pieceColor == king.pieceColor) &&
-               (board.squares[62].piece.pieceType == NONE ) &&
-               (board.squares[61].piece.pieceType == NONE) &&
-               (blackAttack[61] == false) &&
-               (blackAttack[62] == false)){
-                king.validMoves.push(62);
-                whiteAttack[62] = true;
-            }
-        }
-        if(board.squares[56].piece.pieceType != NONE){
-            if((board.squares[56].piece.pieceType == ROOK) &&
-               (board.squares[56].piece.pieceColor == king.pieceColor) &&
-               (board.squares[56].piece.moved == false)&& // not sure
-               (board.squares[57].piece.pieceType == NONE ) &&
-               (board.squares[58].piece.pieceType == NONE) &&
-               (board.squares[59].piece.pieceType == NONE) &&
-               (blackAttack[58] == false) &&
-               (blackAttack[59] == false)){
-                king.validMoves.push(58);
-                whiteAttack[58] = true;
-            }
-        }
-    }
-    else if (king.pieceColor == COLOR_BLACK){
-        if(board.blackCheck) return;
+	if(king.pieceType == NONE || king.moved ||
+	   (king.pieceColor == COLOR_WHITE && (board.whiteCastled || board.whiteCheck)) ||
+	   (king.pieceColor == COLOR_BLACK && (board.blackCastled || board.blackCheck)))
+		return;
 
-        if( (board.squares[7].piece.pieceType != NONE ) &&
-           (board.squares[7].piece.pieceType == ROOK) &&
-           (board.squares[7].piece.moved == false ) &&
-           board.squares[7].piece.pieceColor == king.pieceColor &&
-           (board.squares[6].piece.pieceType == NONE ) &&
-           (board.squares[5].piece.pieceType == NONE)){
-                king.validMoves.push(6);
-                blackAttack[6] = true;
-           }
-        if(board.squares[0].piece.pieceType != NONE &&
-          (board.squares[0].piece.pieceType == ROOK) &&
-          (board.squares[0].piece.moved == false) &&
-          board.squares[0].piece.pieceColor == king.pieceColor &&
-          (board.squares[1].piece.pieceType == NONE) &&
-          (board.squares[2].piece.pieceType == NONE) &&
-          (board.squares[3].piece.pieceType == NONE) &&
-          (whiteAttack[2] == false ) && (whiteAttack[3] == false)){
-            king.validMoves.push(2);
-            blackAttack[2] = true;
+	int pieceRow = ((king.pieceColor == COLOR_WHITE) ? 7 : 0);
+	const bool *opponentAttack = ((king.pieceColor == COLOR_WHITE) ? blackAttack : whiteAttack);
+	bool *allyAttack = ((king.pieceColor == COLOR_WHITE) ? whiteAttack : blackAttack);
+	int rightKnight64 = to64Square(pieceRow,6),
+	    rightBishop64 = to64Square(pieceRow,5),
+		queen64 = to64Square(pieceRow,3),
+		leftBishop64 = to64Square(pieceRow,2);
+	const Piece &rightRookPiece = board.squares[to64Square(pieceRow,7)].piece;
+	const Piece &rightKnightPiece = board.squares[rightKnight64].piece;
+	const Piece &rightBishopPiece = board.squares[rightBishop64].piece;
+	const Piece &queenPiece = board.squares[queen64].piece;
+	const Piece &leftBishopPiece = board.squares[leftBishop64].piece;
+	const Piece &leftKnightPiece = board.squares[to64Square(pieceRow,1)].piece;
+	const Piece &leftRookPiece = board.squares[to64Square(pieceRow,0)].piece;
 
-          }
-    }
+	if((rightRookPiece.pieceType == ROOK) &&
+	   (!rightRookPiece.moved) &&
+	   (rightRookPiece.pieceColor == king.pieceColor) && // redundant?
+	   (rightKnightPiece.pieceType == NONE) &&
+	   (rightBishopPiece.pieceType == NONE) &&
+	   (!opponentAttack[rightBishop64]) &&
+	   (!opponentAttack[rightKnight64])){
+		   king.validMoves.push(rightKnight64);
+		   allyAttack[rightKnight64] = true;
+	}
+	if((leftRookPiece.pieceType == ROOK) &&
+	   (!leftRookPiece.moved) && // not sure
+	   (leftRookPiece.pieceColor == king.pieceColor) && // redundant?
+	   (leftKnightPiece.pieceType == NONE) &&
+	   (leftBishopPiece.pieceType == NONE) &&
+	   (queenPiece.pieceType == NONE) &&
+	   (!opponentAttack[queen64]) &&
+	   (!opponentAttack[leftBishop64])){
+		   king.validMoves.push(leftBishop64);
+		   allyAttack[leftBishop64] = true;
+	}
 }
 void ValidMoves::generateValidMoves(Board &board){
     board.blackCheck=false;
@@ -196,7 +179,7 @@ void ValidMoves::generateValidMoves(Board &board){
         case BISHOP:{
             int x = ROW(index);
             int y = COL(index);
-            if(x+y % 2 == 1){
+            if(IS_BLACK(x,y)){
                 //BLACK
                 for(int i = 0;i < (int)moves.blackBishopMoves[index].size();i++){
                     analyzeMove(board, moves.blackBishopMoves[index][i], sqr.piece);
