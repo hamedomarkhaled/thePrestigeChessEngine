@@ -16,7 +16,6 @@ Board::Board():
     whiteCanCastle(0),
     whiteCastled(0),
     endGamePhase(0),
-    enPassantPosition(0),
-//    whosMove(COLOR_WHITE),
+    whosMove(COLOR_WHITE),
     moveCount(0)
     {}

@@ -4,10 +4,11 @@
 #define COL(INDEX) ((int)INDEX%8)
 #include "Square.h"
 #include "Pieces.h"
+#include "Moves.h"
 
 class Board{
 public:
-    Square squares[64];
+    Square squares[NUMBER_OF_SQUARES];
     int score;
     bool blackCheck;
     bool blackMate;
@@ -26,20 +27,15 @@ public:
     bool endGamePhase;
 
     /** MoveContent file LastMove**/
-//    PieceColor enPassantColor;
+//    PieceColor enPassantPosition;
 
-    int enPassantPosition;
+//    int enPassantPosition;
 
     PieceColor whosMove;
 
     int moveCount;
     /**CONSTRUCTORS**/
     Board();
-
-
-
-
-
 
 
 };
