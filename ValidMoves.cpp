@@ -1,4 +1,9 @@
 #include "ValidMoves.h"
+#include"iostream"
+ValidMoves::ValidMoves(){
+    std::cout << "ValidMoves\n";
+
+}
 bool ValidMoves::analyzeMove(Board &board, int index, Piece &pcMoving){
     if(pcMoving.pieceColor == COLOR_WHITE)
         whiteAttack[index]=true;

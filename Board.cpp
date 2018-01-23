@@ -1,5 +1,6 @@
 #include "Board.h"
 #include "Pieces.h"
+#include "iostream"
 
 /** initial board() **/
 Board::Board():
@@ -17,5 +18,6 @@ Board::Board():
     whiteCastled(0),
     endGamePhase(0),
     whosMove(COLOR_WHITE),
-    moveCount(0)
-    {}
+    moveCount(0){
+        std::cout << "BOARD\n";
+    }
