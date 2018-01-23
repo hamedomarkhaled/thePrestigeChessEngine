@@ -200,12 +200,12 @@ void Moves::genQueenMoves(){
         int y = COL(i);
         if( (x+y)%2 == 1){
             //black
-            for(int j = 0;j < (int)blackBishopMoves.size();j++){
+            for(int j = 0;j < (int)blackBishopMoves[i].size();j++){
                 queensMoves[i].push_back(blackBishopMoves[i][j]);
             }
         }
         else{
-            for(int j = 0;j < (int)whiteBishopMoves.size();j++){
+            for(int j = 0;j < (int)whiteBishopMoves[i].size();j++){
                 queensMoves[i].push_back(whiteBishopMoves[i][j]);
             }
         }

@@ -1,7 +1,7 @@
 #include "ValidMoves.h"
-#include"iostream"
+
 ValidMoves::ValidMoves(){
-    std::cout << "ValidMoves\n";
+//    std::cout << "ValidMoves\n";
 
 }
 bool ValidMoves::analyzeMove(Board &board, int index, Piece &pcMoving){
@@ -87,8 +87,12 @@ void ValidMoves::analyzeMovePawn(Board &board, int dst, Piece &pcMoving){
     return ;
 }
 void ValidMoves::generateValidMovesKing(Piece &piece, Board &board, int src){
+
     if(piece.pieceType == NONE) return ;
-    for(int i = 0;(int)moves.kingMoves[src].size();i++){
+//    std::cout << "king size " <<  moves.kingMoves[src].size() <<"\n";
+    for(int i = 0;i < (int)moves.kingMoves[src].size();i++){
+//          std::cout << "i = " << i << "\n";
+
         int dst=moves.kingMoves[src][i];
         if(piece.pieceColor == COLOR_WHITE ){
             if(blackAttack[dst]){
@@ -102,6 +106,7 @@ void ValidMoves::generateValidMovesKing(Piece &piece, Board &board, int src){
                 continue;
             }
         }
+
         analyzeMove(board, dst, piece);
     }
 }
@@ -173,21 +178,26 @@ void ValidMoves::generateValidMoves(Board &board){
     int remainingPieces=0;
 
     for(int index = 0;index < NUMBER_OF_SQUARES;index++){
-
         Square sqr = board.squares[index];
         if(sqr.piece.pieceType == NONE)
             continue;
+//    std::cout << index << " " << sqr.piece.pieceType << "\n";
     remainingPieces++;
     switch(sqr.piece.pieceType){
         case PAWN:{
             if(sqr.piece.pieceColor == COLOR_WHITE){
-                for(int i = 0;i < (int)moves.whitePawnsMoves[index].size();i++)
+
+                for(int i = 0;i < (int)moves.whitePawnsMoves[index].size();i++){
+
                     checkValidMovesPawn(board, moves.whitePawnsMoves[index][i], sqr.piece, index);
+                }
 
             }
             else if (sqr.piece.pieceColor == COLOR_BLACK){
-                for(int i = 0;i < (int)moves.blackPawnsMoves[index].size();i++)
+
+                for(int i = 0;i < (int)moves.blackPawnsMoves[index].size();i++){
                     checkValidMovesPawn(board, moves.blackPawnsMoves[index][i], sqr.piece,index);
+                }
 
             }
             break;
@@ -220,8 +230,10 @@ void ValidMoves::generateValidMoves(Board &board){
             if(sqr.piece.moved && sqr.piece.pieceColor == COLOR_WHITE) whiteRooksMoved++;
             if(sqr.piece.moved && sqr.piece.pieceColor == COLOR_BLACK) blackRooksMoved++;
             for(int i = 0;i < (int)moves.rookMoves[index].size();i++){
-                    analyzeMove(board, moves.rookMoves[index][i], sqr.piece);
+
+                analyzeMove(board, moves.rookMoves[index][i], sqr.piece);
             }
+
             break;
         }
         case QUEEN:{
@@ -252,22 +264,22 @@ void ValidMoves::generateValidMoves(Board &board){
         if(blackRooksMoved > 1) board.blackCanCastle = 0;
         if(whiteRooksMoved > 1) board.whiteCanCastle = 0;
         if(remainingPieces < 10) board.endGamePhase = 1;
+
+    }
         if(board.whosMove == COLOR_WHITE){
-            generateValidMovesKing(sqr.piece, board, blackKingPosition);
-            generateValidMovesKing(sqr.piece, board, whiteKingPosition);
+            generateValidMovesKing(board.squares[blackKingPosition].piece, board, blackKingPosition);
+            generateValidMovesKing(board.squares[whiteKingPosition].piece, board, whiteKingPosition);
         }
         else if(board.whosMove == COLOR_BLACK){
-            generateValidMovesKing(sqr.piece, board, whiteKingPosition);
-        generateValidMovesKing(sqr.piece, board, blackKingPosition);
+            generateValidMovesKing(board.squares[whiteKingPosition].piece, board, whiteKingPosition);
+            generateValidMovesKing(board.squares[blackKingPosition].piece, board, blackKingPosition);
 
         }
         if(!board.whiteCastled && board.whiteCanCastle && !board.whiteCheck)
-            generateValidMovesKingCastle(board, sqr.piece);
+            generateValidMovesKingCastle(board, board.squares[whiteKingPosition].piece);
         if(!board.blackCastled && board.blackCanCastle && !board.blackCheck)
-            generateValidMovesKingCastle(board, sqr.piece);
+            generateValidMovesKingCastle(board, board.squares[blackKingPosition].piece);
 
-
-    }
 
 
 }

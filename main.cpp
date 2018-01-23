@@ -9,6 +9,7 @@ int convert(int x, int y){
 }
 int main()
 {
+
     Board board;
 
     for(int i = 0, j = 48;i < 16;i++,j++){
@@ -74,7 +75,9 @@ int main()
         }
         std:: cout << "\n";
     }
-ValidMoves VM;
+    ValidMoves VM;
+    VM.generateValidMoves(board);
+
 
     return 0;
 }

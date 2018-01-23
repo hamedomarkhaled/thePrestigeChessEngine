@@ -2,6 +2,7 @@
 #define VALIDMOVES_H
 #include "Moves.h"
 #include "Board.h"
+#include"iostream"
 class ValidMoves{
 public:
     ValidMoves();
@@ -22,7 +23,6 @@ public:
     void generateValidMoves(Board &board);
      /**Will be intialized from the engine **/
     Moves moves;
-     // Castling possibility
 
 };
 #endif // VALIDMOVES_H
