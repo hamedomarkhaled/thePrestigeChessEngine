@@ -208,16 +208,9 @@ void Moves::genQueenMoves(){
     for(int i = 0;i < 64;i++){
         int x=ROW(i);
         int y = COL(i);
-<<<<<<< HEAD
-        if(IS_BLACK(x,y)){
-            //black
-            for(int j = 0;j < (int)blackBishopMoves.size();j++){
-                queensMoves[i].push_back(blackBishopMoves[i][j]);
-=======
             for(int j = x, k = y;valid(j,k); j--,k++){
                 if(j==x && k==y) continue;
                 queensNorthEastMoves[i].push_back(to64Square(j,k));
->>>>>>> dc99b51581d15772aef92f9e3d6d57c73cf5f6ac
             }
             for(int j = x, k = y;valid(j,k); j--,k--){
                 if(j==x && k==y) continue;
