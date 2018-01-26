@@ -1,5 +1,6 @@
 #include "Moves.h"
 #include "Board.h"
+#include "iostream"
 /**
 0  1  2  3  4  5  6  7
 8  9  10 11 12 13 14 15 always black
@@ -43,7 +44,7 @@ void Moves::genWhitePawnsMoves(){
     for(int i = 48;i>=8;i--){
         int x = ROW(i);
         int y = COL(i);
-        whitePawnsMoves[i].push_back(to64Square(x,y));
+//        whitePawnsMoves[i].push_back(to64Square(x,y));
         if(valid(x-1, y)){
             whitePawnsMoves[i].push_back(to64Square(x-1,y));
         }
@@ -62,7 +63,7 @@ void Moves::genBlackPawnsMoves(){
         int x = ROW(i);
         int y = COL(i);
 
-        blackPawnsMoves[i].push_back(to64Square(x,y));
+//        blackPawnsMoves[i].push_back(to64Square(x,y));
         if(valid(x+1, y)){
             blackPawnsMoves[i].push_back(to64Square(x+1, y));
         }
@@ -113,7 +114,7 @@ void Moves::genBlackBishopMoves(){
         int x = ROW(i);
         int y = COL(i);
         if(IS_BLACK(x,y)){
-            blackBishopMoves[i].push_back(to64Square(x,y));
+//            blackBishopMoves[i].push_back(to64Square(x,y));
             for(int j = x, k = y;valid(j,k); j--,k++){
                 if(j==x && k==y) continue;
                 blackBishopMoves[i].push_back(to64Square(j,k));
@@ -141,7 +142,7 @@ void Moves::genWhiteBishopMoves(){
         int y = COL(i);
 
         if(IS_WHITE(x,y)){
-            whiteBishopMoves[i].push_back(to64Square(x,y));
+//            whiteBishopMoves[i].push_back(to64Square(x,y));
             for(int j = x, k = y;valid(j,k); j--,k++){
                 if(j==x && k==y) continue;
                 whiteBishopMoves[i].push_back(to64Square(j,k));
@@ -166,7 +167,7 @@ void Moves::genRookMoves(){
     for(int i = 0;i < 64;i++){
         int x=ROW(i);
         int y=COL(i);
-        rookMoves[i].push_back(to64Square(x,y));
+//        rookMoves[i].push_back(to64Square(x,y));
         for(int j = x, k = y;valid(j,k);j--){
             if(j==x&&k==y) continue;
             rookMoves[i].push_back(to64Square(j,k));
@@ -212,19 +213,23 @@ void Moves::genKingMoves(){
     for(int i = 0;i < 64;i++){
         int x = ROW(i);
         int y = COL(i);
-        kingMoves[i].push_back(valid(x,y));
-        if(valid(x+1,y)){
-            kingMoves[i].push_back(valid(x+1,y));
-        }
-        if(valid(x-1,y)){
-            kingMoves[i].push_back(valid(x-1,y));
-        }
-        if(valid(x,y+1)){
-            kingMoves[i].push_back(valid(x,y+1));
-        }
-        if(valid(x,y-1)){
-            kingMoves[i].push_back(valid(x,y-1));
-        }
+//        kingMoves[i].push_back(valid(x,y));
+        if(valid(x+1, y))
+            kingMoves[i].push_back(to64Square(x+1, y));
+        if(valid(x-1, y))
+            kingMoves[i].push_back(to64Square(x-1, y));
+        if(valid(x-1, y+1))
+            kingMoves[i].push_back(to64Square(x-1, y+1));
+        if(valid(x+1, y+1))
+            kingMoves[i].push_back(to64Square(x+1, y+1));
+        if(valid(x, y+1))
+            kingMoves[i].push_back(to64Square(x, y+1));
+        if(valid(x, y-1))
+            kingMoves[i].push_back(to64Square(x, y-1));
+        if(valid(x-1, y-1))
+            kingMoves[i].push_back(to64Square(x-1, y-1));
+        if(valid(x+1, y-1))
+            kingMoves[i].push_back(to64Square(x+1, y-1));
 
     }
 }

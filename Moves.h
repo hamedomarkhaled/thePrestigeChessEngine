@@ -20,11 +20,15 @@ TO-DO handling special moves Castling , Pawn Promotion, En Passant
 class Moves{
 public:
 
+
     vector <vector < int > > whitePawnsMoves;
+
 
     vector <vector < int > > blackPawnsMoves;
 
+
     vector <vector < int > > knightMoves;
+
 
     vector <vector < int > > blackBishopMoves;
 

@@ -1,4 +1,9 @@
 #include "ValidMoves.h"
+#include"iostream"
+ValidMoves::ValidMoves(){
+    std::cout << "ValidMoves\n";
+
+}
 bool ValidMoves::analyzeMove(Board &board, int index, Piece &pcMoving){
     if(pcMoving.pieceColor == COLOR_WHITE)
         whiteAttack[index]=true;
@@ -227,10 +232,7 @@ void ValidMoves::generateValidMoves(Board &board){
 
 
     }
-
-
-    }
-    if(blackRooksMoved > 1) board.blackCanCastle = 0;
+        if(blackRooksMoved > 1) board.blackCanCastle = 0;
         if(whiteRooksMoved > 1) board.whiteCanCastle = 0;
         if(remainingPieces < 10) board.endGamePhase = 1;
         if(board.whosMove == COLOR_WHITE){
@@ -246,5 +248,9 @@ void ValidMoves::generateValidMoves(Board &board){
             generateValidMovesKingCastle(board, sqr.piece);
         if(!board.blackCastled && board.blackCanCastle && !board.blackCheck)
             generateValidMovesKingCastle(board, sqr.piece);
+
+
+    }
+
 
 }

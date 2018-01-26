@@ -4,7 +4,7 @@
 #include "Board.h"
 class ValidMoves{
 public:
-
+    ValidMoves();
     bool blackAttack[NUMBER_OF_SQUARES];
     bool whiteAttack[NUMBER_OF_SQUARES];
 
@@ -18,11 +18,10 @@ public:
     void analyzeMovePawn(Board &board, int dst, Piece &pcMoving);
     /**TO-generatingValidMethods**/
     void generateValidMovesKingCastle(Board &board, Piece &king);
-     void generateValidMoves(Board &board);
-     void generateValidMovesKing(Piece &piece, Board &board, int src);
+    void generateValidMovesKing(Piece &piece, Board &board, int src);
+    void generateValidMoves(Board &board);
      /**Will be intialized from the engine **/
-     Moves moves;
-
+    Moves moves;
      // Castling possibility
 
 };
