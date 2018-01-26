@@ -27,16 +27,34 @@ public:
     vector <vector < int > > blackPawnsMoves;
 
 
+
     vector <vector < int > > knightMoves;
 
 
-    vector <vector < int > > blackBishopMoves;
+    vector <vector < int > > blackBishopNorthEastMoves;
+    vector <vector < int > > blackBishopNorthWestMoves;
+    vector <vector < int > > blackBishopSouthEastMoves;
+    vector <vector < int > > blackBishopSouthWestMoves;
 
-    vector <vector < int > > whiteBishopMoves;
 
-    vector <vector < int > > rookMoves;
+    vector <vector < int > > whiteBishopNorthEastMoves;
+    vector <vector < int > > whiteBishopNorthWestMoves;
+    vector <vector < int > > whiteBishopSouthEastMoves;
+    vector <vector < int > > whiteBishopSouthWestMoves;
 
-    vector <vector < int > > queensMoves;
+    vector <vector < int > > rookNorthMoves;
+    vector <vector < int > > rookSouthMoves;
+    vector <vector < int > > rookEastMoves;
+    vector <vector < int > > rookWestMoves;
+
+    vector <vector < int > > queensNorthMoves;
+    vector <vector < int > > queensSouthMoves;
+    vector <vector < int > > queensEastMoves;
+    vector <vector < int > > queensWestMoves;
+    vector <vector < int > > queensNorthEastMoves;
+    vector <vector < int > > queensNorthWestMoves;
+    vector <vector < int > > queensSouthEastMoves;
+    vector <vector < int > > queensSouthWestMoves;
 
     vector <vector < int > > kingMoves;
 

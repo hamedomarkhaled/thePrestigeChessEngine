@@ -1,7 +1,17 @@
 #include "ValidMoves.h"
-#include"iostream"
+#include <iostream>
+/**
+0  1  2  3  4  5  6  7
+8  9  10 11 12 13 14 15 always black
+16 17 18 19 20 21 22 23
+24 25 26 27 28 29 30 31
+32 33 34 35 36 37 38 39
+40 41 42 43 44 45 46 47
+48 49 50 51 52 53 54 55 always white
+56 57 58 59 60 61 62 63
+**/
 ValidMoves::ValidMoves(){
-    std::cout << "ValidMoves\n";
+//    std::cout << "ValidMoves\n";
 
 }
 bool ValidMoves::analyzeMove(Board &board, int index, Piece &pcMoving){
@@ -11,6 +21,7 @@ bool ValidMoves::analyzeMove(Board &board, int index, Piece &pcMoving){
         blackAttack[index]=true;
 
     if(board.squares[index].piece.pieceType == NONE){
+//        std::cout << "3la al wla ftta7\n";
         pcMoving.validMoves.push(index);
         return true;
     }
@@ -25,6 +36,8 @@ bool ValidMoves::analyzeMove(Board &board, int index, Piece &pcMoving){
                 board.whiteCheck = true;
         }
         else{
+//            std::cout << "3la al wla ftta72\n";
+
             pcMoving.validMoves.push(index);
         }
         /**WHY FALSE!!*/
@@ -87,8 +100,12 @@ void ValidMoves::analyzeMovePawn(Board &board, int dst, Piece &pcMoving){
     return ;
 }
 void ValidMoves::generateValidMovesKing(Piece &piece, Board &board, int src){
+
     if(piece.pieceType == NONE) return ;
-    for(int i = 0;(int)moves.kingMoves[src].size();i++){
+//    std::cout << "king size " <<  moves.kingMoves[src].size() <<"\n";
+    for(int i = 0;i < (int)moves.kingMoves[src].size();i++){
+//          std::cout << "i = " << i << "\n";
+
         int dst=moves.kingMoves[src][i];
         if(piece.pieceColor == COLOR_WHITE ){
             if(blackAttack[dst]){
@@ -102,6 +119,7 @@ void ValidMoves::generateValidMovesKing(Piece &piece, Board &board, int src){
                 continue;
             }
         }
+
         analyzeMove(board, dst, piece);
     }
 }
@@ -156,26 +174,32 @@ void ValidMoves::generateValidMoves(Board &board){
     int remainingPieces=0;
 
     for(int index = 0;index < NUMBER_OF_SQUARES;index++){
-
-        Square sqr = board.squares[index];
+        Square &sqr = board.squares[index]; /**Reference**/
         if(sqr.piece.pieceType == NONE)
             continue;
+//    std::cout << index << " " << sqr.piece.pieceType << "\n";
     remainingPieces++;
     switch(sqr.piece.pieceType){
         case PAWN:{
             if(sqr.piece.pieceColor == COLOR_WHITE){
-                for(int i = 0;i < (int)moves.whitePawnsMoves[index].size();i++)
+
+                for(int i = 0;i < (int)moves.whitePawnsMoves[index].size();i++){
+
                     checkValidMovesPawn(board, moves.whitePawnsMoves[index][i], sqr.piece, index);
+                }
 
             }
             else if (sqr.piece.pieceColor == COLOR_BLACK){
-                for(int i = 0;i < (int)moves.blackPawnsMoves[index].size();i++)
+
+                for(int i = 0;i < (int)moves.blackPawnsMoves[index].size();i++){
                     checkValidMovesPawn(board, moves.blackPawnsMoves[index][i], sqr.piece,index);
+                }
 
             }
             break;
         }
         case KNIGHT:{
+
             for(int i = 0;i < (int)moves.knightMoves[index].size();i++){
                 analyzeMove(board,moves.knightMoves[index][i] , sqr.piece);
             }
@@ -186,15 +210,41 @@ void ValidMoves::generateValidMoves(Board &board){
             int y = COL(index);
             if(IS_BLACK(x,y)){
                 //BLACK
-                for(int i = 0;i < (int)moves.blackBishopMoves[index].size();i++){
-                    analyzeMove(board, moves.blackBishopMoves[index][i], sqr.piece);
+                bool f = 1;
+                for(int i = 0;i < (int)moves.blackBishopNorthEastMoves[index].size() && f;i++){
+                    f = analyzeMove(board, moves.blackBishopNorthEastMoves[index][i], sqr.piece);
+                }
+                f = 1;
+                for(int i = 0;i < (int)moves.blackBishopNorthWestMoves[index].size() && f;i++){
+                    f = analyzeMove(board, moves.blackBishopNorthWestMoves[index][i], sqr.piece);
+                }
+                f = 1;
+                for(int i = 0;i < (int)moves.blackBishopSouthEastMoves[index].size() && f;i++){
+                    f = analyzeMove(board, moves.blackBishopSouthEastMoves[index][i], sqr.piece);
+                }
+                f = 1;
+                for(int i = 0;i < (int)moves.blackBishopSouthWestMoves[index].size() && f;i++){
+                    f = analyzeMove(board, moves.blackBishopSouthWestMoves[index][i], sqr.piece);
                 }
                 break;
             }
             else{
                 //WHITE
-                for(int i = 0;i < (int)moves.whiteBishopMoves[index].size();i++){
-                    analyzeMove(board, moves.whiteBishopMoves[index][i], sqr.piece);
+               bool f = 1;
+                for(int i = 0;i < (int)moves.whiteBishopNorthEastMoves[index].size() && f;i++){
+                    f = analyzeMove(board, moves.whiteBishopNorthEastMoves[index][i], sqr.piece);
+                }
+                f = 1;
+                for(int i = 0;i < (int)moves.whiteBishopNorthWestMoves[index].size() && f;i++){
+                    f = analyzeMove(board, moves.whiteBishopNorthWestMoves[index][i], sqr.piece);
+                }
+                f = 1;
+                for(int i = 0;i < (int)moves.whiteBishopSouthEastMoves[index].size() && f;i++){
+                    f = analyzeMove(board, moves.whiteBishopSouthEastMoves[index][i], sqr.piece);
+                }
+                f = 1;
+                for(int i = 0;i < (int)moves.whiteBishopSouthWestMoves[index].size() && f;i++){
+                    f = analyzeMove(board, moves.whiteBishopSouthWestMoves[index][i], sqr.piece);
                 }
                 break;
             }
@@ -202,15 +252,64 @@ void ValidMoves::generateValidMoves(Board &board){
         case ROOK:{
             if(sqr.piece.moved && sqr.piece.pieceColor == COLOR_WHITE) whiteRooksMoved++;
             if(sqr.piece.moved && sqr.piece.pieceColor == COLOR_BLACK) blackRooksMoved++;
-            for(int i = 0;i < (int)moves.rookMoves[index].size();i++){
-                    analyzeMove(board, moves.rookMoves[index][i], sqr.piece);
+            bool f = 1;
+            for(int i = 0;i < (int)moves.rookNorthMoves[index].size() && f;i++){
+
+                f = analyzeMove(board, moves.rookNorthMoves[index][i], sqr.piece);
             }
+            f = 1;
+            for(int i = 0;i < (int)moves.rookSouthMoves[index].size() && f;i++){
+
+                f = analyzeMove(board, moves.rookSouthMoves[index][i], sqr.piece);
+            }
+            f = 1;
+            for(int i = 0;i < (int)moves.rookEastMoves[index].size() && f;i++){
+
+                f = analyzeMove(board, moves.rookEastMoves[index][i], sqr.piece);
+            }
+            f = 1;
+            for(int i = 0;i < (int)moves.rookWestMoves[index].size() && f;i++){
+
+                f = analyzeMove(board, moves.rookWestMoves[index][i], sqr.piece);
+            }
+
             break;
         }
         case QUEEN:{
-            for(int i = 0;i < (int)moves.queensMoves[index].size();i++){
-                    analyzeMove(board, moves.queensMoves[index][i], sqr.piece);
+            bool f = 1;
+            for(int i = 0;i < (int)moves.queensNorthMoves[index].size() && f;i++){
+                    f = analyzeMove(board, moves.queensNorthMoves[index][i], sqr.piece);
             }
+            f = 1;
+            for(int i = 0;i < (int)moves.queensSouthMoves[index].size() && f;i++){
+                    f = analyzeMove(board, moves.queensSouthMoves[index][i], sqr.piece);
+            }
+            f = 1;
+            for(int i = 0;i < (int)moves.queensEastMoves[index].size() && f;i++){
+                    f = analyzeMove(board, moves.queensEastMoves[index][i], sqr.piece);
+            }
+            f = 1;
+            for(int i = 0;i < (int)moves.queensWestMoves[index].size() && f;i++){
+                    f = analyzeMove(board, moves.queensWestMoves[index][i], sqr.piece);
+            }
+            f = 1;
+            for(int i = 0;i < (int)moves.queensNorthWestMoves[index].size() && f;i++){
+                    f = analyzeMove(board, moves.queensNorthWestMoves[index][i], sqr.piece);
+            }
+            f = 1;
+            for(int i = 0;i < (int)moves.queensSouthWestMoves[index].size() && f;i++){
+                    f = analyzeMove(board, moves.queensSouthWestMoves[index][i], sqr.piece);
+            }
+            f = 1;
+            for(int i = 0;i < (int)moves.queensNorthEastMoves[index].size() && f;i++){
+                    f = analyzeMove(board, moves.queensNorthEastMoves[index][i], sqr.piece);
+            }
+            f = 1;
+            for(int i = 0;i < (int)moves.queensSouthEastMoves[index].size() && f;i++){
+                    f = analyzeMove(board, moves.queensSouthEastMoves[index][i], sqr.piece);
+            }
+
+
             break;
         }
         case KING:{
@@ -235,22 +334,22 @@ void ValidMoves::generateValidMoves(Board &board){
         if(blackRooksMoved > 1) board.blackCanCastle = 0;
         if(whiteRooksMoved > 1) board.whiteCanCastle = 0;
         if(remainingPieces < 10) board.endGamePhase = 1;
+
+    }
         if(board.whosMove == COLOR_WHITE){
-            generateValidMovesKing(sqr.piece, board, blackKingPosition);
-            generateValidMovesKing(sqr.piece, board, whiteKingPosition);
+            generateValidMovesKing(board.squares[blackKingPosition].piece, board, blackKingPosition);
+            generateValidMovesKing(board.squares[whiteKingPosition].piece, board, whiteKingPosition);
         }
         else if(board.whosMove == COLOR_BLACK){
-            generateValidMovesKing(sqr.piece, board, whiteKingPosition);
-        generateValidMovesKing(sqr.piece, board, blackKingPosition);
+            generateValidMovesKing(board.squares[whiteKingPosition].piece, board, whiteKingPosition);
+            generateValidMovesKing(board.squares[blackKingPosition].piece, board, blackKingPosition);
 
         }
         if(!board.whiteCastled && board.whiteCanCastle && !board.whiteCheck)
-            generateValidMovesKingCastle(board, sqr.piece);
+            generateValidMovesKingCastle(board, board.squares[whiteKingPosition].piece);
         if(!board.blackCastled && board.blackCanCastle && !board.blackCheck)
-            generateValidMovesKingCastle(board, sqr.piece);
+            generateValidMovesKingCastle(board, board.squares[blackKingPosition].piece);
 
-
-    }
 
 
 }

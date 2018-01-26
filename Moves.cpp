@@ -22,10 +22,26 @@ Moves::Moves():
     whitePawnsMoves(NUMBER_OF_SQUARES, vector<int>()),
     blackPawnsMoves(NUMBER_OF_SQUARES, vector<int>()),
     knightMoves(NUMBER_OF_SQUARES,  vector<int>()),
-    blackBishopMoves(NUMBER_OF_SQUARES, vector<int>()),
-    whiteBishopMoves(NUMBER_OF_SQUARES, vector<int>()),
-    rookMoves(NUMBER_OF_SQUARES, vector<int>()),
-    queensMoves(NUMBER_OF_SQUARES, vector<int>()),
+    blackBishopNorthEastMoves(NUMBER_OF_SQUARES,  vector<int>()),
+    blackBishopNorthWestMoves(NUMBER_OF_SQUARES,  vector<int>()),
+    blackBishopSouthEastMoves(NUMBER_OF_SQUARES,  vector<int>()),
+    blackBishopSouthWestMoves(NUMBER_OF_SQUARES,  vector<int>()),
+    whiteBishopNorthEastMoves(NUMBER_OF_SQUARES,  vector<int>()),
+    whiteBishopNorthWestMoves(NUMBER_OF_SQUARES,  vector<int>()),
+    whiteBishopSouthEastMoves(NUMBER_OF_SQUARES,  vector<int>()),
+    whiteBishopSouthWestMoves(NUMBER_OF_SQUARES,  vector<int>()),
+    rookNorthMoves(NUMBER_OF_SQUARES,  vector<int>()),
+    rookSouthMoves(NUMBER_OF_SQUARES,  vector<int>()),
+    rookEastMoves(NUMBER_OF_SQUARES,  vector<int>()),
+    rookWestMoves(NUMBER_OF_SQUARES,  vector<int>()),
+    queensNorthMoves(NUMBER_OF_SQUARES,  vector<int>()),
+    queensSouthMoves(NUMBER_OF_SQUARES,  vector<int>()),
+    queensEastMoves(NUMBER_OF_SQUARES,  vector<int>()),
+    queensWestMoves(NUMBER_OF_SQUARES,  vector<int>()),
+    queensNorthEastMoves(NUMBER_OF_SQUARES,  vector<int>()),
+    queensNorthWestMoves(NUMBER_OF_SQUARES,  vector<int>()),
+    queensSouthEastMoves(NUMBER_OF_SQUARES,  vector<int>()),
+    queensSouthWestMoves(NUMBER_OF_SQUARES,  vector<int>()),
     kingMoves(NUMBER_OF_SQUARES, vector<int>())
     {
 
@@ -41,7 +57,7 @@ Moves::Moves():
 }
 /** Add to pawn mkanoh**/
 void Moves::genWhitePawnsMoves(){
-    for(int i = 48;i>=8;i--){
+    for(int i = 48;i<=63;i++){
         int x = ROW(i);
         int y = COL(i);
 //        whitePawnsMoves[i].push_back(to64Square(x,y));
@@ -54,12 +70,12 @@ void Moves::genWhitePawnsMoves(){
         if(valid(x-1, y+1)){
             whitePawnsMoves[i].push_back(to64Square(x-1,y+1));
         }
-        if(ROW(i) == 7)
+        if(ROW(i) == 6)
             whitePawnsMoves[i].push_back(to64Square(x-2,y));
     }
 }
 void Moves::genBlackPawnsMoves(){
-    for(int i = 8;i <=48;i++){
+    for(int i = 8;i <=15;i++){
         int x = ROW(i);
         int y = COL(i);
 
@@ -117,19 +133,19 @@ void Moves::genBlackBishopMoves(){
 //            blackBishopMoves[i].push_back(to64Square(x,y));
             for(int j = x, k = y;valid(j,k); j--,k++){
                 if(j==x && k==y) continue;
-                blackBishopMoves[i].push_back(to64Square(j,k));
+                blackBishopNorthEastMoves[i].push_back(to64Square(j,k));
             }
             for(int j = x, k = y;valid(j,k); j--,k--){
                 if(j==x && k==y) continue;
-                blackBishopMoves[i].push_back(to64Square(j,k));
+                blackBishopNorthWestMoves[i].push_back(to64Square(j,k));
             }
             for(int j = x, k = y;valid(j,k); j++,k--){
                 if(j==x && k==y) continue;
-                blackBishopMoves[i].push_back(to64Square(j,k));
+                blackBishopSouthWestMoves[i].push_back(to64Square(j,k));
             }
             for(int j = x, k = y;valid(j,k); j++,k++){
                 if(j==x && k==y) continue;
-                blackBishopMoves[i].push_back(to64Square(j,k));
+                blackBishopSouthEastMoves[i].push_back(to64Square(j,k));
             }
         }
 
@@ -145,19 +161,19 @@ void Moves::genWhiteBishopMoves(){
 //            whiteBishopMoves[i].push_back(to64Square(x,y));
             for(int j = x, k = y;valid(j,k); j--,k++){
                 if(j==x && k==y) continue;
-                whiteBishopMoves[i].push_back(to64Square(j,k));
+                whiteBishopNorthEastMoves[i].push_back(to64Square(j,k));
             }
             for(int j = x, k = y;valid(j,k); j--,k--){
                 if(j==x && k==y) continue;
-                whiteBishopMoves[i].push_back(to64Square(j,k));
+                whiteBishopNorthWestMoves[i].push_back(to64Square(j,k));
             }
             for(int j = x, k = y;valid(j,k); j++,k--){
                 if(j==x && k==y) continue;
-                whiteBishopMoves[i].push_back(to64Square(j,k));
+                whiteBishopSouthWestMoves[i].push_back(to64Square(j,k));
             }
             for(int j = x, k = y;valid(j,k); j++,k++){
                 if(j==x && k==y) continue;
-                whiteBishopMoves[i].push_back(to64Square(j,k));
+                whiteBishopSouthEastMoves[i].push_back(to64Square(j,k));
             }
         }
 
@@ -170,19 +186,19 @@ void Moves::genRookMoves(){
 //        rookMoves[i].push_back(to64Square(x,y));
         for(int j = x, k = y;valid(j,k);j--){
             if(j==x&&k==y) continue;
-            rookMoves[i].push_back(to64Square(j,k));
+            rookNorthMoves[i].push_back(to64Square(j,k));
         }
         for(int j = x, k = y;valid(j,k);j++){
             if(j==x&&k==y) continue;
-            rookMoves[i].push_back(to64Square(j,k));
+            rookSouthMoves[i].push_back(to64Square(j,k));
         }
         for(int j = x, k = y;valid(j,k);k--){
             if(j==x&&k==y) continue;
-            rookMoves[i].push_back(to64Square(j,k));
+            rookWestMoves[i].push_back(to64Square(j,k));
         }
         for(int j = x, k = y;valid(j,k);k++){
             if(j==x&&k==y) continue;
-            rookMoves[i].push_back(to64Square(j,k));
+            rookEastMoves[i].push_back(to64Square(j,k));
         }
 
 
@@ -190,24 +206,48 @@ void Moves::genRookMoves(){
 }
 void Moves::genQueenMoves(){
     for(int i = 0;i < 64;i++){
-        for(int j = 0;j < (int)rookMoves[i].size();j++){
-            queensMoves[i].push_back(rookMoves[i][j]);
-        }
         int x=ROW(i);
         int y = COL(i);
+<<<<<<< HEAD
         if(IS_BLACK(x,y)){
             //black
             for(int j = 0;j < (int)blackBishopMoves.size();j++){
                 queensMoves[i].push_back(blackBishopMoves[i][j]);
+=======
+            for(int j = x, k = y;valid(j,k); j--,k++){
+                if(j==x && k==y) continue;
+                queensNorthEastMoves[i].push_back(to64Square(j,k));
+>>>>>>> dc99b51581d15772aef92f9e3d6d57c73cf5f6ac
+            }
+            for(int j = x, k = y;valid(j,k); j--,k--){
+                if(j==x && k==y) continue;
+                queensNorthWestMoves[i].push_back(to64Square(j,k));
+            }
+            for(int j = x, k = y;valid(j,k); j++,k--){
+                if(j==x && k==y) continue;
+                queensSouthWestMoves[i].push_back(to64Square(j,k));
+            }
+            for(int j = x, k = y;valid(j,k); j++,k++){
+                if(j==x && k==y) continue;
+                queensSouthEastMoves[i].push_back(to64Square(j,k));
+            }
+            for(int j = x, k = y;valid(j,k);j--){
+                if(j==x&&k==y) continue;
+                queensNorthMoves[i].push_back(to64Square(j,k));
+            }
+            for(int j = x, k = y;valid(j,k);j++){
+                if(j==x&&k==y) continue;
+                queensSouthMoves[i].push_back(to64Square(j,k));
+            }
+            for(int j = x, k = y;valid(j,k);k--){
+                if(j==x&&k==y) continue;
+                queensWestMoves[i].push_back(to64Square(j,k));
+            }
+            for(int j = x, k = y;valid(j,k);k++){
+                if(j==x&&k==y) continue;
+                queensEastMoves[i].push_back(to64Square(j,k));
             }
         }
-        else{
-            for(int j = 0;j < (int)whiteBishopMoves.size();j++){
-                queensMoves[i].push_back(whiteBishopMoves[i][j]);
-            }
-        }
-
-    }
 }
 void Moves::genKingMoves(){
     for(int i = 0;i < 64;i++){

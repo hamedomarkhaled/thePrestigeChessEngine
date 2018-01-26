@@ -2,7 +2,7 @@
 #define PIECE_H
 #include <stack>
 #include <bitset>
-
+#include <vector>
 //typedef std::bitset<8> BYTE;
 enum PieceColor{
     COLOR_WHITE,
