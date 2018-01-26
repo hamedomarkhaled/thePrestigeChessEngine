@@ -55,7 +55,7 @@ int main()
                     break;
                 }
                 case KNIGHT:{
-                    std::cout << "H ";
+                    std::cout << "N ";
                     break;
                 }
                 case BISHOP:{
@@ -77,7 +77,28 @@ int main()
     }
     ValidMoves VM;
     VM.generateValidMoves(board);
-
-
+////    for(int i = 0;i < VM.moves.knightMoves[62].size();i++){
+////        std::cout << "Possible Square " << VM.moves.knightMoves[62][i] << " is analyzed as " <<
+////        VM.analyzeMove(board, VM.moves.knightMoves[62][i], board.squares[62].piece)<<"\n";
+////    }
+////    std::cout << board.squares[62].piece.validMoves.size() <<"\n";
+////    while(!board.squares[62].piece.validMoves.empty()){
+////        int x = board.squares[62].piece.validMoves.top();
+////        board.squares[62].piece.validMoves.pop();
+////        std::cout << x << "\n";
+////
+////    }
+    for(int i = 0;i < NUMBER_OF_SQUARES;i++){
+        if(board.squares[i].piece.pieceType != NONE){
+            std::cout << board.squares[i].piece.pieceType << " "
+            << board.squares[i].piece.pieceColor<< " " << board.squares[i].piece.validMoves.size() << "\n";
+        }
+    }
+//    std::cout << board.squares[50].piece.validMoves.size() << "\n";
+//    while(!board.squares[50].piece.validMoves.empty()){
+//        int x = board.squares[50].piece.validMoves.top();
+//        board.squares[50].piece.validMoves.pop();
+//        std::cout << x << "\n";
+//    }
     return 0;
 }
