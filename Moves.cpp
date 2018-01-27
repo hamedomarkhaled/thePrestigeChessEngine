@@ -18,9 +18,6 @@ bool Moves::valid(int x, int y){
     if(x<0||y<0||x>7||y>7) return 0;
     return 1;
 }
-int Moves::to64Square(int x, int y){
-    return x*8+y;
-}
 Moves::Moves():
     whitePawnsMoves(NUMBER_OF_SQUARES, vector<int>()),
     blackPawnsMoves(NUMBER_OF_SQUARES, vector<int>()),
@@ -132,7 +129,7 @@ void Moves::genBlackBishopMoves(){
     for(int i = 0;i < 64;++i){
         int x = ROW(i);
         int y = COL(i);
-        if((x+y) % 2 == 1){
+        if(IS_BLACK(x,y)){
 //            blackBishopMoves[i].push_back(to64Square(x,y));
             for(int j = x, k = y;valid(j,k); j--,k++){
                 if(j==x && k==y) continue;
@@ -160,7 +157,7 @@ void Moves::genWhiteBishopMoves(){
         int x = ROW(i);
         int y = COL(i);
 
-        if((x+y) % 2 == 0){
+        if(IS_WHITE(x,y)){
 //            whiteBishopMoves[i].push_back(to64Square(x,y));
             for(int j = x, k = y;valid(j,k); j--,k++){
                 if(j==x && k==y) continue;
